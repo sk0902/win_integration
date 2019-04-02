@@ -1,0 +1,7 @@
+---
+
+packages: openssh
+parameters: /SSHServerFeature
+protocol: tcp
+local_port: 22
+win_service: SSHD

@@ -1,0 +1,16 @@
+---
+- name: Create group/scope
+  win_domain_group:
+    name: "{{item.group_name}}"
+    scope: "{{item.group_scope}}"
+  loop: "{{user_info}}"
+
+- name: Create users
+  win_domain_user:
+    name: "{{item.name}}"
+    firstname: "{{item.firstname}}"
+    surname: "{{item.surname}}"
+    password: "{{item.password}}"
+    email: "{{item.email}}"
+    group: "{{item.group_name}}"
+  loop: "{{user_info}}"

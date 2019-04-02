@@ -1,0 +1,32 @@
+---
+
+- name: Downgrade Chocolatey
+  win_chocolatey:
+   name: "chocolatey"
+   state: downgrade
+   version: 0.10.11
+
+- name: Install Windows packages
+  win_chocolatey:
+   name: "{{packages}}"
+   params: "{{parameters}}"
+   state: latest
+  when: ansible_distribution == "Microsoft Windows Server 2012 R2 Standard"
+
+- name: Enable service
+  win_service:
+   name: "{{win_service}}"
+   start_mode: auto
+   state: restarted
+
+- name: Create FW rule
+  win_firewall_rule:
+    name: SSHD
+    localport: "{{local_port}}"
+    action: allow
+    direction: in
+    protocol: "{{protocol}}"
+    state: present
+    enabled: yes
+
+
